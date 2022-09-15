@@ -32,9 +32,11 @@ function encodeWithRLE (subsequence) {
     let outputSubsequence = '';
     for(let i = 0; i < series.length; i++) {
         if (series[i][0] == '#' && series[i][1] < 4) {
-            for(let j = 0; j < series[i][1]; j++) {
-                outputSubsequence += '#' + String.fromCharCode(1) + '#';
-            }
+
+            outputSubsequence += '#' + String.fromCharCode(series[i][1]) + '#';
+            // for(let j = 0; j < series[i][1]; j++) {
+            //     outputSubsequence += '#' + String.fromCharCode(1) + '#';
+            // }
         } else {
             if (series[i][1] < 4) {
                 outputSubsequence += series[i][0].repeat([series[i][1]]);
@@ -80,19 +82,19 @@ let inputSubsequence;
 try {
     inputSubsequence = fs.readFileSync(clParams[0]).toString(); // get subsequence
     fs.writeFileSync(clParams[2], 'check file name'); // check, if we can create file with entered name
-    if (clParams[1] == '\\e') {
+    if (clParams[1] == '/e') {
         console.log('encode mode');
         outputSubsequence = encodeWithRLE(inputSubsequence);
-        compressionKoef = outputSubsequence.length / inputSubsequence.length;
+        compressionKoef = (outputSubsequence.length / inputSubsequence.length).toFixed();
         //console.log(outputSubsequence);
-        console.log(`compression koef is ${compressionKoef.toFixed(2)}. ${100 * (1-compressionKoef.toFixed(2))} percents compression`);
+        console.log(`compression koef is ${compressionKoef}. ${100 * compressionKoef} percents compression`);
         fs.writeFileSync(clParams[2], outputSubsequence);
-    } else if (clParams[1] == '\\d') {
+    } else if (clParams[1] == '/d') {
         console.log('decode mode');
         //console.log(inputSubsequence);
         fs.writeFileSync(clParams[2], decodeRLE(inputSubsequence));
     } else {
-        throw new SyntaxError('неправильно выбран режим работы программы ([\\e] или [\\d])');
+        throw new SyntaxError('неправильно выбран режим работы программы ([/e] или [/d])');
     }
 } catch (e) {
     if (e.name == Error.name) {
