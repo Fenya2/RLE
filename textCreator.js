@@ -1,6 +1,6 @@
-const numOfSymbols = 500;
+const numOfSymbols = 1000;
 const minSerialLength = 1;
-const maxSeriaLength = 4;
+const maxSeriaLength = 800;
 const fileName = 'input.txt';
 
 function getRandomInt(min, max) {
@@ -10,8 +10,14 @@ function getRandomInt(min, max) {
 }
 output = '';
 for(let i = 0; i < numOfSymbols; i++) {
-    output += String.fromCharCode(getRandomInt(1,255)).repeat(getRandomInt(0,maxSeriaLength));
+    output += String.fromCharCode(getRandomInt(1,255)).repeat(getRandomInt(minSerialLength,maxSeriaLength));
 }
-fs = require('fs');
-fs.writeFileSync(fileName, output);
-fs.writeFileSync(`${process.argv[2]}`, output);
+try {
+    fs = require('fs');
+    fs.writeFileSync(fileName, output);
+    console.log("success!");
+    // fs.writeFileSync(`${process.argv[2]}`, output);
+} catch (e) {
+    console.error(e.message);
+}
+

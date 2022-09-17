@@ -53,6 +53,10 @@ function encodeWithRLE (subsequence) {
     return outputSubsequence;
 }
 
+function showHelp() {
+    console.log(require("fs").readFileSync('help.txt').toString());
+}
+
 function decodeRLE(subsequence) { // '# quantity symbol'
     // console.log('in decode rle')
     // console.log(subsequence);
@@ -80,28 +84,36 @@ let fs = require('fs');
 let inputSubsequence;
 
 try {
+    console.log(clParams[0]);
+    if(clParams[0] === '/?' || !clParams[0]) {
+        throw new Error();
+    }
     inputSubsequence = fs.readFileSync(clParams[0]).toString(); // get subsequence
-    fs.writeFileSync(clParams[2], 'check file name'); // check, if we can create file with entered name
     if (clParams[1] == '/e') {
         console.log('encode mode');
         outputSubsequence = encodeWithRLE(inputSubsequence);
         compressionKoef = (outputSubsequence.length / inputSubsequence.length).toFixed();
         //console.log(outputSubsequence);
-        console.log(`compression koef is ${compressionKoef}. ${100 * compressionKoef} percents compression`);
+        console.log(`Success encoding! Compression koef is ${compressionKoef}. ${100 * (1-compressionKoef)} percents compression`);
         fs.writeFileSync(clParams[2], outputSubsequence);
     } else if (clParams[1] == '/d') {
         console.log('decode mode');
         //console.log(inputSubsequence);
         fs.writeFileSync(clParams[2], decodeRLE(inputSubsequence));
+        console.log("success decoding!");
     } else {
-        throw new SyntaxError('неправильно выбран режим работы программы ([/e] или [/d])');
+        throw new SyntaxError('something wrong');
     }
 } catch (e) {
-    if (e.name == Error.name) {
-        console.error('unexpected file name');
-        console.error(e.name, e.message);
-    }
-    else if (e.name == SyntaxError.name) {
-        console.error(e.message);
-    }
+    showHelp();
+    console.error(e.message);
+    // if (e.name === Error.name) {
+    //     console.error('unexpected file name');
+    //     console.error(e.name, e.message);
+    //     showHelp();
+    // }
+    // else if (e.name == SyntaxError.name) {
+    //     console.error(e.message);
+    //     showHelp();
+    // }
 }
