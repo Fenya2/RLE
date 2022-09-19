@@ -6,7 +6,7 @@ node script.js /?
 
 Encoding and decoding the files using RLE.
 
-script.js [/?] inputFile [/e|/d] outputFile
+node script.js [/?] inputFile [/e|/d] outputFile
 
 without args - help. the same with /?.
 /e - encode data of inputFile and save in outputFile

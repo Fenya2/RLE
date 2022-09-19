@@ -84,11 +84,11 @@ let fs = require('fs');
 let inputSubsequence;
 
 try {
-    console.log(clParams[0]);
     if(clParams[0] === '/?' || !clParams[0]) {
         throw new Error();
     }
     inputSubsequence = fs.readFileSync(clParams[0]).toString(); // get subsequence
+    console.log(clParams[0]);
     if (clParams[1] == '/e') {
         console.log('encode mode');
         outputSubsequence = encodeWithRLE(inputSubsequence);
