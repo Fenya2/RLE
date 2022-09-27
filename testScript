@@ -3,7 +3,7 @@ for (( i=1; i <= $1 ; i++ ))
 do
 echo "test $i"
 node textCreator.js > /dev/null;
-node script.js input.txt /e e.txt > /dev/null;
-node script.js e.txt /d output.txt > /dev/null;
+node rle.js code input.txt out > /dev/null;
+node rle.js decode out output.txt > /dev/null;
 cmp input.txt output.txt
 done

@@ -1,6 +1,6 @@
 const numOfSymbols = 1000;
-const minSerialLength = 800;
-const maxSeriaLength = 1000;
+const minSerialLength = 1;
+const maxSeriaLength = 3;
 const fileName = 'input.txt';
 
 function getRandomInt(min, max) {
