@@ -1,5 +1,5 @@
 const numOfSymbols = 1000;
-const minSerialLength = 10;
+const minSerialLength = 800;
 const maxSeriaLength = 1000;
 const fileName = 'input.txt';
 
